@@ -14,9 +14,24 @@
 # Configure Using Gemfile
 # gem "pg"
 #
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see Rails configuration guide
+  # https://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
 development:
   <<: *default
-  database: clon_twitter_xdq8
+  database: ClonTwitter_development
+
+test:
+  <<: *default
+  database: ClonTwitter_test
+
+production:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
 
 
 
@@ -50,9 +65,7 @@ development:
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
-test:
-  <<: *default
-  database: clon_twitter_xdq8
+
   
 
 # As with config/credentials.yml, you never want to store sensitive information,
@@ -75,7 +88,5 @@ test:
 # Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
 # for a full overview on how database connection configuration can be specified.
 #
-production:
-  <<: *default
-  database: clon_twitter_xdq8
+
   
